@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Go Learning Hub</title>
+  <style>
+    :root {
+      --go-blue: #00ADD8;
+      --go-blue-dark: #0093B8;
+      --go-gray: #555555;
+      --go-light-gray: #f5f5f5;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--go-light-gray);
+      color: var(--go-gray);
+      line-height: 1.6;
+    }
+
+    .header {
+      background: white;
+      padding: 2rem 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 0;
+      background: white;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: var(--go-blue);
+      margin: 0;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--go-gray);
+      max-width: 600px;
+      margin: 1rem auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 4rem 0;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h2 {
+      color: var(--go-blue);
+      margin-top: 0;
+    }
+
+    .card p {
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background: var(--go-blue);
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--go-blue-dark);
+    }
+
+    .footer {
+      background: white;
+      padding: 2rem 0;
+      text-align: center;
+      border-top: 1px solid #eee;
+    }
+
+    .gopher {
+      width: 200px;
+      height: auto;
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <div class="container">
+      <img src="/api/placeholder/150/50" alt="Go Learning Hub Logo" />
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="container">
+      <img src="/api/placeholder/200/200" alt="Go Gopher" class="gopher" />
+      <h1>Go Learning Hub</h1>
+      <p>Your journey to mastering Go programming starts here. Explore our interactive guides and resources to level up
+        your Go skills.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="grid">
+      <div class="card">
+        <h2>Format Specifiers</h2>
+        <p>Master Go's formatting syntax with our interactive guide. Learn how to format strings, numbers, and complex
+          data types with precision.</p>
+        <a href="/fmt-specifiers/" class="btn">Learn Formatting →</a>
+      </div>
+
+      <div class="card">
+        <h2>Go Basics</h2>
+        <p>Start your Go journey with fundamental concepts. Variables, control structures, functions, and more - all
+          explained with practical examples.</p>
+        <a href="#" class="btn">Coming Soon →</a>
+      </div>
+
+      <div class="card">
+        <h2>Data Structures</h2>
+        <p>Dive into Go's built-in data structures. Arrays, slices, maps, and structs - learn how to use them
+          effectively in your programs.</p>
+        <a href="#" class="btn">Coming Soon →</a>
+      </div>
+
+      <div class="card">
+        <h2>Concurrency</h2>
+        <p>Understand Go's powerful concurrency model. Goroutines, channels, and the sync package - master parallel
+          programming in Go.</p>
+        <a href="#" class="btn">Coming Soon →</a>
+      </div>
+
+      <div class="card">
+        <h2>Standard Library</h2>
+        <p>Explore Go's rich standard library. Learn to work with files, networks, encoding, and more using built-in
+          packages.</p>
+        <a href="#" class="btn">Coming Soon →</a>
+      </div>
+
+      <div class="card">
+        <h2>Best Practices</h2>
+        <p>Write idiomatic Go code. Learn the best practices, common patterns, and optimization techniques used by Go
+          experts.</p>
+        <a href="#" class="btn">Coming Soon →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="container">
+      <p>Built with ♥ for the Go community</p>
+      <p><a href="https://github.com/yourusername/your-repo">View on GitHub</a></p>
+    </div>
+  </div>
+</body>
+
+</html>

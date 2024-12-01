@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Go Format Specifiers Guide</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    .header {
+      text-align: center;
+      padding: 40px 0;
+      background: #00ADD8;
+      color: white;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .specifier {
+      font-size: 24px;
+      color: #00ADD8;
+      font-weight: bold;
+    }
+
+    .description {
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .example {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 10px 0;
+      font-family: monospace;
+    }
+
+    .output {
+      color: #2E7D32;
+      margin-top: 5px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 8px;
+      background: #E0F2F1;
+      color: #00897B;
+      border-radius: 4px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+
+    /* Base card styles */
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      border-left: 4px solid;
+      /* For category color */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Number formats (d, f) - Blue spectrum */
+    .card[data-type="number"] {
+      border-left-color: #2196F3;
+    }
+
+    .card[data-type="number"] .specifier {
+      color: #1976D2;
+    }
+
+    .card[data-type="number"] .tag {
+      background: #E3F2FD;
+      color: #1976D2;
+    }
+
+    .card[data-type="decimal"] {
+      border-left-color: #03A9F4;
+    }
+
+    .card[data-type="decimal"] .specifier {
+      color: #0288D1;
+    }
+
+    .card[data-type="decimal"] .tag {
+      background: #E1F5FE;
+      color: #0288D1;
+    }
+
+    /* Text formats (s, v) - Green spectrum */
+    .card[data-type="text"] {
+      border-left-color: #4CAF50;
+    }
+
+    .card[data-type="text"] .specifier {
+      color: #388E3C;
+    }
+
+    .card[data-type="text"] .tag {
+      background: #E8F5E9;
+      color: #388E3C;
+    }
+
+    .card[data-type="universal"] {
+      border-left-color: #66BB6A;
+    }
+
+    .card[data-type="universal"] .specifier {
+      color: #43A047;
+    }
+
+    .card[data-type="universal"] .tag {
+      background: #F1F8E9;
+      color: #43A047;
+    }
+
+    /* Type/Memory formats (T, p) - Purple spectrum */
+    .card[data-type="type"] {
+      border-left-color: #9C27B0;
+    }
+
+    .card[data-type="type"] .specifier {
+      color: #7B1FA2;
+    }
+
+    .card[data-type="type"] .tag {
+      background: #F3E5F5;
+      color: #7B1FA2;
+    }
+
+    .card[data-type="memory"] {
+      border-left-color: #AB47BC;
+    }
+
+    .card[data-type="memory"] .specifier {
+      color: #8E24AA;
+    }
+
+    .card[data-type="memory"] .tag {
+      background: #F5E9F7;
+      color: #8E24AA;
+    }
+
+    /* Base formats (b, o, x) - Orange spectrum */
+    .card[data-type="binary"] {
+      border-left-color: #FF9800;
+    }
+
+    .card[data-type="binary"] .specifier {
+      color: #F57C00;
+    }
+
+    .card[data-type="binary"] .tag {
+      background: #FFF3E0;
+      color: #F57C00;
+    }
+
+    .card[data-type="octal"] {
+      border-left-color: #FF7043;
+    }
+
+    .card[data-type="octal"] .specifier {
+      color: #E64A19;
+    }
+
+    .card[data-type="octal"] .tag {
+      background: #FBE9E7;
+      color: #E64A19;
+    }
+
+    .card[data-type="hexadecimal"] {
+      border-left-color: #FF5722;
+    }
+
+    .card[data-type="hexadecimal"] .specifier {
+      color: #D84315;
+    }
+
+    .card[data-type="hexadecimal"] .tag {
+      background: #FBE9E7;
+      color: #D84315;
+    }
+
+    /* Boolean (t) - Teal */
+    .card[data-type="boolean"] {
+      border-left-color: #009688;
+    }
+
+    .card[data-type="boolean"] .specifier {
+      color: #00796B;
+    }
+
+    .card[data-type="boolean"] .tag {
+      background: #E0F2F1;
+      color: #00796B;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <h1>Go Format Specifiers Guide</h1>
+    <p>Interactive guide to understanding Golang's formatting syntax</p>
+  </div>
+
+  <div class="grid">
+    <div class="card" data-type="number">
+      <div class="specifier">%d</div>
+      <div class="description">Decimal integer</div>
+      <div class="example">
+        fmt.Printf("Age: %d\n", 25)
+        <div class="output">→ Age: 25</div>
+      </div>
+      <span class="tag">Numbers</span>
+    </div>
+
+    <div class="card" data-type="decimal">
+      <div class="specifier">%f</div>
+      <div class="description">Floating-point number</div>
+      <div class="example">
+        fmt.Printf("Price: %.2f\n", 19.99)
+        <div class="output">→ Price: 19.99</div>
+      </div>
+      <span class="tag">Decimals</span>
+    </div>
+
+    <div class="card" data-type="text">
+      <div class="specifier">%s</div>
+      <div class="description">String</div>
+      <div class="example">
+        fmt.Printf("Name: %s\n", "Gopher")
+        <div class="output">→ Name: Gopher</div>
+      </div>
+      <span class="tag">Text</span>
+    </div>
+
+    <div class="card" data-type="boolean">
+      <div class="specifier">%t</div>
+      <div class="description">Boolean (true/false)</div>
+      <div class="example">
+        fmt.Printf("Is Valid: %t\n", true)
+        <div class="output">→ Is Valid: true</div>
+      </div>
+      <span class="tag">Boolean</span>
+    </div>
+
+    <div class="card" data-type="universal">
+      <div class="specifier">%v</div>
+      <div class="description">Default format for any value</div>
+      <div class="example">
+        fmt.Printf("Value: %v\n", struct{x int}{42})
+        <div class="output">→ Value: {42}</div>
+      </div>
+      <span class="tag">Universal</span>
+    </div>
+
+    <div class="card" data-type="type">
+      <div class="specifier">%T</div>
+      <div class="description">Type of the value</div>
+      <div class="example">
+        fmt.Printf("Type: %T\n", "hello")
+        <div class="output">→ Type: string</div>
+      </div>
+      <span class="tag">Types</span>
+    </div>
+
+    <div class="card" data-type="memory">
+      <div class="specifier">%p</div>
+      <div class="description">Pointer address</div>
+      <div class="example">
+        x := 42
+        fmt.Printf("Address: %p\n", &x)
+        <div class="output">→ Address: 0xc0000b4008</div>
+      </div>
+      <span class="tag">Memory</span>
+    </div>
+
+    <div class="card" data-type="binary">
+      <div class="specifier">%b</div>
+      <div class="description">Binary representation</div>
+      <div class="example">
+        fmt.Printf("Binary: %b\n", 42)
+        <div class="output">→ Binary: 101010</div>
+      </div>
+      <span class="tag">Binary</span>
+    </div>
+
+    <div class="card" data-type="octal">
+      <div class="specifier">%o</div>
+      <div class="description">Octal representation</div>
+      <div class="example">
+        fmt.Printf("Octal: %o\n", 42)
+        <div class="output">→ Octal: 52</div>
+      </div>
+      <span class="tag">Octal</span>
+    </div>
+
+    <div class="card" data-type="hexadecimal">
+      <div class="specifier">%x</div>
+      <div class="description">Hexadecimal (lowercase)</div>
+      <div class="example">
+        fmt.Printf("Hex: %x\n", 255)
+        <div class="output">→ Hex: ff</div>
+      </div>
+      <span class="tag">Hexadecimal</span>
+    </div>
+  </div>
+</body>
+
+</html>
